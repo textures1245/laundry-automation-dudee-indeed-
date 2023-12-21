@@ -1,3 +1,21 @@
+<script lang="ts">
+export default {
+  components: {},
+  setup() {
+    return {}
+  }
+}
+</script>
+
 <template>
-  <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <Suspense>
+    <router-view></router-view>
+  </Suspense>
 </template>
+
+<style>
+html,
+body {
+  height: 100%;
+}
+</style>
