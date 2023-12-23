@@ -8,7 +8,7 @@ export class VirtualCoins implements IVirtualCoins {
   }
 
   addCoins(amount: number) {
-    // Implement coin addition logic
+    this.balance += amount
   }
 
   getBalance(): number {

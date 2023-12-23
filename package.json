@@ -15,12 +15,15 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@formkit/i18n": "^1.4.0",
     "@formkit/vue": "^1.4.0",
     "@mdi/font": "^7.3.67",
     "animate.css": "^4.1.1",
+    "genesis": "link:@formkit/themes/genesis",
     "iconify-icon": "^1.0.8",
     "longdo-map-vue": "^3.0.2",
     "pinia": "^2.1.7",
+    "sweetalert2": "^11.10.1",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5",
     "vuetify": "^3.4.8"

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@formkit/i18n':
+    specifier: ^1.4.0
+    version: 1.4.0
   '@formkit/vue':
     specifier: ^1.4.0
     version: 1.4.0(tailwindcss@3.4.0)(typescript@5.3.3)
@@ -14,6 +17,9 @@ dependencies:
   animate.css:
     specifier: ^4.1.1
     version: 4.1.1
+  genesis:
+    specifier: link:@formkit/themes/genesis
+    version: link:@formkit/themes/genesis
   iconify-icon:
     specifier: ^1.0.8
     version: 1.0.8
@@ -23,6 +29,9 @@ dependencies:
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(typescript@5.3.3)(vue@3.3.13)
+  sweetalert2:
+    specifier: ^11.10.1
+    version: 11.10.1
   vue:
     specifier: ^3.3.11
     version: 3.3.13(typescript@5.3.3)
@@ -3483,6 +3492,10 @@ packages:
   /svg-tags@1.0.0:
     resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
     dev: true
+
+  /sweetalert2@11.10.1:
+    resolution: {integrity: sha512-qu145oBuFfjYr5yZW9OSdG6YmRxDf8CnkgT/sXMfrXGe+asFy2imC2vlaLQ/L/naZ/JZna1MPAY56G4qYM0VUQ==}
+    dev: false
 
   /symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}

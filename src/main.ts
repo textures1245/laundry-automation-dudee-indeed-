@@ -25,11 +25,24 @@ const vuetify = createVuetify({
   directives
 })
 
+//- import longdo map api script
+const longDoAPI = 'https://api.longdo.com/map/?key=' + import.meta.env.VITE_LONGDO_MAP_API_KEY
+const script = document.createElement('script')
+script.setAttribute('src', longDoAPI)
+script.setAttribute('type', 'text/javascript')
+document.head.appendChild(script)
+
 const app = createApp(App)
 
 app.use(createPinia())
+
 app.use(router)
-app.use(plugin, defaultConfig)
+app.use(
+  plugin,
+  defaultConfig({
+    theme: 'genesis' // will load from CDN and inject into document head
+  })
+)
 app.use(vuetify)
 
 app.mount('#app')

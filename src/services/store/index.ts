@@ -12,7 +12,7 @@ export type LaundryState = {
 
 function generateCoordinateNearUserLocation(userLocation: ICoordinates): ICoordinates {
   // Define the range of the offset (in degrees)
-  const offset = 0.03
+  const offset = 0.01
 
   // Generate random offsets for latitude and longitude
   const latOffset = (Math.random() - 0.5) * 2 * offset

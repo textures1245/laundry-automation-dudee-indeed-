@@ -10,7 +10,7 @@ export function getGeoRequest(): Promise<ICoordinates> {
       },
       (error) => {
         console.error(getErrorMessage(error))
-        reject(error)
+        reject(null)
       }
     )
   })

@@ -55,6 +55,7 @@ interface IWashingMachine extends IWashingMachineOperations {
   id: string
   storeId: string
   name: string
+  isAvailable: boolean
 }
 
 // classes interface
@@ -78,7 +79,6 @@ interface INotification {
   machine?: WashingMachine
   message: string
   date: Date
-  getNotifications(): Notification[]
 }
 
 interface IMap {
