@@ -3,6 +3,7 @@ import type { WashingMachine } from './classes/WashingMachine'
 import { Notification } from './classes/Notification'
 import type { LaundryStore } from './classes/LaundryStore'
 import type VirtualCoins from './classes/VirtualCoins'
+import type QueueOperation from './classes/QueueOperation'
 
 interface ICoordinates {
   latitude: number
@@ -25,18 +26,24 @@ interface IFormValidation {
 interface IUserOperations {
   getVirtualCoins(): number
   addVirtualCoins(amount: number): void
-  useWashingMachine(machine: WashingMachine): void
+  useWashingMachine(
+    machine: WashingMachine,
+    cost: number,
+    mins: number,
+    storeQueue: QueueOperation,
+    store: LaundryStore
+  ): boolean
+  addQueue(store: LaundryStore, machine: WashingMachine): QueueOperation
 }
 
-interface IWashingMachineOperations {
-  startWashing(user: User): void
+interface IWashingMachineOperations extends IGetTimeLeftInterval {
+  startWashing(mins: number, storeQueue: QueueOperation, user: User, store: LaundryStore): void
   getCost(): number
 }
 
 interface IQueueOperations {
   enqueue(machine: WashingMachine): void
-  dequeue(): WashingMachine | undefined
-  notifyUser(machine: WashingMachine): void
+  dequeue(onDequeueUserQueueList?: { user: User; onDequeueQueueList: QueueOperation }): void
   getQueue(): WashingMachine[]
 }
 
@@ -92,6 +99,11 @@ interface IVirtualCoins {
   getBalance(): number
 }
 
+interface IGetTimeLeftInterval {
+  setTimeLeftInterval(user: User, userQueue: QueueOperation): void
+  getTimeLeftInterval(): number
+}
+
 export type {
   ICoordinates,
   IMachineNotification,
@@ -107,5 +119,6 @@ export type {
   IUser,
   INotification,
   ILaundryStore,
-  IMap
+  IMap,
+  IGetTimeLeftInterval
 }

@@ -1,15 +1,22 @@
 <script lang="ts">
 import { useUserStore } from '../services/store/userStore'
 import { useNotificationStore } from '../services/store/notificationStore'
+import type { User } from '@/services/classes/User'
+import type { PropType } from 'vue'
 
 export default {
   data: () => ({
-    user: useUserStore().$state.user,
     sendNotification: useNotificationStore().sendNotification,
     form: {
       coins: ''
     }
   }),
+  props: {
+    user: {
+      type: Object as PropType<User>,
+      required: true
+    }
+  },
   methods: {
     onAddCoins() {
       const { coins } = this.form
@@ -37,7 +44,7 @@ export default {
       </v-btn>
     </template>
 
-    <template v-slot:default="{isActive}">
+    <template v-slot:default="{ isActive }">
       <v-card>
         <template v-slot:title>
           <div class="flex items-center justify-between">
@@ -68,7 +75,7 @@ export default {
                 text="ยืนยันการเพิ่มเหรียญ"
                 color="primary"
                 variant="tonal"
-                @click="() => [onAddCoins(), isActive.value = false, form.coins = '']"
+                @click="() => [onAddCoins(), (isActive.value = false), (form.coins = '')]"
               ></v-btn>
             </div>
           </FormKit>

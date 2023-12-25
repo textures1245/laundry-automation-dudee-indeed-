@@ -1,5 +1,6 @@
 import type { ICoordinates, IUser } from '../type'
 import type { LaundryStore } from './LaundryStore'
+import QueueOperation from './QueueOperation'
 import VirtualCoins from './VirtualCoins'
 import { WashingMachine } from './WashingMachine'
 
@@ -8,10 +9,7 @@ export class User implements IUser {
   username: string
   balance: VirtualCoins
   currentLocation: ICoordinates // Assuming you have a balance class
-  queueList: {
-    store: LaundryStore
-    machine: WashingMachine[]
-  }[]
+  queueList: QueueOperation[]
 
   constructor(username: string, initialCoins: number, location: ICoordinates) {
     this.uId = Math.random().toString(36).substr(2, 9)
@@ -29,25 +27,32 @@ export class User implements IUser {
     this.balance.addCoins(amount)
   }
 
-  useWashingMachine(machine: WashingMachine) {
-    if (this.balance.getBalance() >= machine.getCost()) {
-      this.balance.addCoins(-machine.getCost())
-      machine.startWashing(this)
+  addQueue(store: LaundryStore, machine: WashingMachine) {
+    const laundryStore = this.queueList.find((s) => s.store.id === store.id)
+    console.log(laundryStore)
+    if (laundryStore) {
+      laundryStore.enqueue(machine)
+      return laundryStore
     } else {
-      console.log(`${this.username}, you don't have enough coins to use this machine.`)
+      const newQueue = new QueueOperation(store, [machine])
+      this.queueList.push(newQueue)
+      return newQueue
     }
   }
 
-  addQueue(store: LaundryStore, machine: WashingMachine) {
-    const laundryStore = this.queueList.find((s) => s.store.id === store.id)
-    if (laundryStore) {
-      laundryStore.machine.push(machine)
+  useWashingMachine(
+    machine: WashingMachine,
+    cost: number,
+    mins: number,
+    storeQueue: QueueOperation,
+    store: LaundryStore
+  ): boolean {
+    if (this.balance.getBalance() >= cost) {
+      this.balance.addCoins(-cost)
+      machine.startWashing(mins, storeQueue, this, store)
+      return true
     } else {
-      this.queueList.push({
-        store: store,
-        machine: [machine]
-      })
+      return false
     }
   }
 }
-

@@ -59,19 +59,23 @@ export default {
             {
               title: store.laundryStore.name,
               icon: {
-                html: `<div class="avatar"><div class="w-9 rounded-full p-3 bg-primary/60"><img src="${launddyIcon}" /></div></div>`,
+                html: ` <div class="avatar skeleton   rounded-full">
+     <div class="w-9 bg-opacity-animation  rounded-full p-3 animate-pulse transition-all duration-150 ease-in-out  bg-primary/60"><img  src="${launddyIcon}" /></div>
+  </div>`,
                 offset: { x: 12, y: 45 }
               },
               popup: {
                 html: `
                 <div class="card w-32">
-      <div class="alert flex flex-col alert-secondary">
-        <div>จำนวนเครื่องซักผ้า: ${store.washingMachines.length}</div>
-        <button class="btn btn-xs btn-info" onclick="navigateToStore('${store.laundryStore.id}')">
-          เข้าสู้ร้าน
-        </button>
-      </div>
+                  <div class="alert flex flex-col alert-secondary">
+                    <div class="divider  -my-1 text-base">${ store.laundryStore.name }</div>
+      
+      <div>จำนวนเครื่องซักผ้า: ${store.washingMachines.length}</div>
+      <button class="btn btn-xs btn-info" onclick="navigateToStore('${store.laundryStore.id}')">
+        เข้าสู้ร้าน
+      </button>
     </div>
+  </div>
   `,
                 offset: { x: 12, y: 80 }
               },
@@ -100,6 +104,21 @@ export default {
 
 <template>
   <div class="h-screen" id="map"></div>
+
+  
 </template>
 
-<style scoped></style>
+<style scoped>
+@keyframes bg-opacity-animation {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+.bg-opacity-animation {
+  animation: bg-opacity-animation 5s ease-in-out infinite alternate;
+}
+</style>

@@ -67,11 +67,12 @@ export const useLaundryStore = defineStore('useLaundryStore', {
         }
         const { id, name, coordinate } = sample
 
+        const laundryStore = new LaundryStore(id, name, coordinate)
         const washingMachines = generateWashingMachines(amountOfMachine, id)
-        const queue = new QueueOperation(id)
+        const queue = new QueueOperation(laundryStore, [])
 
         stores.push({
-          laundryStore: new LaundryStore(id, name, coordinate),
+          laundryStore,
           washingMachines,
           queue
         })

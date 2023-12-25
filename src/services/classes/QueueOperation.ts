@@ -1,12 +1,15 @@
 import type { IQueueOperations } from '../type'
+import type { LaundryStore } from './LaundryStore'
+import type { User } from './User'
 import type { WashingMachine } from './WashingMachine'
 
 class QueueOperation implements IQueueOperations {
-  storeId: string
+  store: LaundryStore
   machinesOnQueue: WashingMachine[] = []
 
-  constructor(storeId: string) {
-    this.storeId = storeId
+  constructor(storeId: LaundryStore, machinesOnQueue: WashingMachine[]) {
+    this.store = storeId
+    this.machinesOnQueue = machinesOnQueue
   }
 
   enqueue(machine: WashingMachine) {
@@ -14,12 +17,14 @@ class QueueOperation implements IQueueOperations {
     // Implement queue logic
   }
 
-  dequeue(): WashingMachine | undefined {
-    return this.machinesOnQueue.shift()
-  }
-
-  notifyUser(machine: WashingMachine) {
-    // Implement notification logic
+  dequeue(onDequeueUserQueueList?: { user: User; onDequeueQueueList: QueueOperation }) {
+    this.machinesOnQueue.shift()
+    if (onDequeueUserQueueList) {
+      const { user, onDequeueQueueList } = onDequeueUserQueueList
+      if (onDequeueQueueList.machinesOnQueue.length < 1) {
+        user.queueList.splice(user.queueList.indexOf(onDequeueQueueList), 1)
+      }
+    }
   }
 
   getQueue(): WashingMachine[] {

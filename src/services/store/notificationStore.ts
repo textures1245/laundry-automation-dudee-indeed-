@@ -9,18 +9,42 @@ export const useNotificationStore = defineStore('useNotificationStore', {
   state: () => ({
     notification: <Notification[]>[]
   }),
+
+  getters: {
+    getUserNotification: (state) => {
+      return (userId: string) =>
+        state.notification.filter((notification) => notification.user.uId === userId)
+    }
+  },
   actions: {
     setNotification(notification: Notification[]) {
       this.notification = notification
     },
 
-    notifyMachineReady(user: User, machine: WashingMachine, icon?: SweetAlertIcon) {
-      const msg = new Notification(
+    notifyMachineSuccess(user: User, machine: WashingMachine, icon?: SweetAlertIcon) {
+      const notification = new Notification(user, `เครื่องปั่นหมายเลย ${machine.name} `, machine)
+      Toast.fire({
+        icon: icon ?? 'info',
+        title: `ข้อความจากร้าน ${machine.storeId}`,
+        text: notification.message,
+        footer: `เมื่อ ${notification.date.toLocaleString()}`
+      })
+      this.$state.notification.push(notification)
+    },
+
+    notifyMachineUnderMinute(user: User, machine: WashingMachine, icon?: SweetAlertIcon) {
+      const notification = new Notification(
         user,
-        `เครื่องหมายเลย ${machine.name} ว่างพร้อมให้ใช้งานแล้ว, สามารถใช้ได้ตอนนี้เลย`,
+        `เครื่องซักผ้า ${machine.name} จะว่างในอีก 1 นาที`,
         machine
       )
-      this.$state.notification.push(msg)
+      Toast.fire({
+        icon: icon ?? 'info',
+        title: `ข้อความจากร้าน ${machine.storeId}`,
+        text: `เครื่องซักผ้า ${machine.name} จะว่างในอีก 1 นาที`,
+        footer: `เมื่อ ${notification.date.toLocaleString()}`
+      })
+      this.$state.notification.push(notification)
     },
 
     // scheduleMachineNotification(user: User, machine: WashingMachine, time: Date) {
@@ -28,18 +52,26 @@ export const useNotificationStore = defineStore('useNotificationStore', {
     // },
 
     sendNotification(user: User, message: string, icon?: SweetAlertIcon) {
-      const msg = new Notification(user, message)
+      const notification = new Notification(user, message)
       Toast.fire({
         icon: icon ?? 'info',
         text: message,
-        footer: `เมื่อ ${msg.date.toLocaleString()}`
+        footer: `เมื่อ ${notification.date.toLocaleString()}`
       })
 
-      this.$state.notification.push(msg)
+      this.$state.notification.push(notification)
     },
 
-    alertUserOnMachineIssues(machine: WashingMachine, icon?: SweetAlertIcon) {
-      // Implement alert logic for machine issues
+    alertUserOnMachineIssues(user: User, machine: WashingMachine, icon?: SweetAlertIcon) {
+      const notification = new Notification(user, 'เครื่องซักผ้ามีปัญหา', machine)
+      Toast.fire({
+        icon: icon ?? 'info',
+        title: `ข้อความจากร้าน ${machine.storeId}`,
+        text: notification.message,
+        footer: `เมื่อ ${notification.date.toLocaleString()}`
+      })
+
+      this.$state.notification.push(notification)
     }
   }
 })

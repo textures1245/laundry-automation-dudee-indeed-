@@ -5,10 +5,13 @@ import { getGeoRequest } from '../services/functions/geoLocation'
 import { useUserStore } from '@/services/store/userStore'
 import { useLaundryStore } from '../services/store/index'
 import { useNotificationStore } from '../services/store/notificationStore'
+import { storeToRefs } from 'pinia'
+import type { User } from '@/services/classes/User'
+import NotificationDrawer from '@/components/NotificationDrawer.vue'
 
 export default {
   name: 'DashboardView',
-  components: { MapComponent, DashboardDrawer },
+  components: { MapComponent, DashboardDrawer, NotificationDrawer },
   async setup() {
     const currentUserLocation = await getGeoRequest()
 
@@ -26,7 +29,7 @@ export default {
 
     return {
       currentUserLocation,
-      user: useUserStore().getUser
+      user: storeToRefs(useUserStore()).getUser
     }
   },
   data() {
@@ -40,10 +43,11 @@ export default {
   <div>
     <v-app>
       <v-layout>
-        <DashboardDrawer :user="user" />
+        <DashboardDrawer :user="user as User" />
         <v-main class="h-full w-full">
           <MapComponent :zoom-num="16" :geo-location="currentUserLocation" />
         </v-main>
+        <NotificationDrawer :user="user as User" />
       </v-layout>
     </v-app>
   </div>

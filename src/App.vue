@@ -8,9 +8,9 @@ export default {
   <div data-theme="winter">
     <Suspense>
       <router-view v-slot="{ Component }">
-        <component :is="Component" />
-        <!-- <keep-alive include="DashboardView">
-        </keep-alive> -->
+        <keep-alive include="DashboardView">
+          <component :is="Component" />
+        </keep-alive>
       </router-view>
     </Suspense>
   </div>

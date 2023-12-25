@@ -1,16 +1,22 @@
 <script lang="ts">
 import CoinSettingDialog from './CoinSettingDialog.vue'
 import type { User } from '@/services/classes/User'
-import type { PropType } from 'vue'
-import { useNotificationStore } from '@/services/store/notificationStore'
+import { type PropType, watch } from 'vue'
 import type { LaundryStore } from '@/services/classes/LaundryStore'
 import { WashingMachine } from '../services/classes/WashingMachine'
+import QueueOperation from '../services/classes/QueueOperation'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
 
 export default {
   name: 'LandryStoreDrawer',
   components: { CoinSettingDialog },
   mounted() {
-    return {}
+    watch(
+      () => this.user.queueList.find((q) => q.store.id === this.laundryStore.id)?.machinesOnQueue,
+      (newValue) => {
+        this.userQueue = newValue ?? []
+      }
+    )
   },
   data() {
     return {
@@ -18,43 +24,69 @@ export default {
       rail: false,
       panel: [0, 1],
       tab: null,
-
+      display: useDisplay(),
+      userQueue:
+        this.user.queueList.find((q) => q.store.id === this.laundryStore.id)?.machinesOnQueue ||
+        ([] as WashingMachine[]),
       tabOptions: [
         { value: 'allQueue', text: 'คิวทั้งหมด' },
         { value: 'myQueue', text: 'คิวของฉัน' }
       ]
     }
   },
+  computed: {
+    asSmSize() {
+      if (this.display.smAndDown) {
+        return false
+      }
+      return true
+    }
+  },
   props: {
     user: {
       type: Object as PropType<User>,
+
       required: true
     },
     laundryStore: {
       type: Object as PropType<LaundryStore>,
       required: true
     },
+    storeQueue: {
+      type: Object as PropType<QueueOperation>,
+      required: true
+    },
     machines: {
       type: Array as PropType<WashingMachine[]>,
       required: true
-    }
-  },
-  methods: {
-    test() {
-      useNotificationStore().sendNotification(this.user, 'test')
     }
   }
 }
 </script>
 
 <template>
+  <div class="relative">
+    <div class="fixed z-10 left-2 bottom-2">
+      <v-btn
+        @click="() => (drawer = !drawer)"
+        variant="flat"
+        class="!bg-opacity-20"
+        :rounded="true"
+        color="primary"
+        icon="mdi-menu"
+      ></v-btn>
+    </div>
+  </div>
   <v-navigation-drawer
+    temporary
+    class="fixed bg-fixed"
+    app
     width="300"
     :class="!rail ? 'p-3' : 'p-0'"
     location="left"
     v-model="drawer"
     :rail="rail"
-    permanent
+    :permanent="asSmSize"
     @click="rail = false"
   >
     <div class="space-y-3">
@@ -64,7 +96,7 @@ export default {
         nav
       >
         <template v-slot:append>
-          <v-btn variant="text" icon="mdi-chevron-left" @click.stop="rail = !rail"></v-btn>
+          <v-btn variant="text" icon="mdi-chevron-left" @click.stop="drawer = !drawer"></v-btn>
         </template>
       </v-list-item>
 
@@ -74,7 +106,7 @@ export default {
 
           คงเหลือ: {{ user.balance.getBalance() }}
         </p>
-        <CoinSettingDialog />
+        <CoinSettingDialog :user="user" />
       </div>
 
       <div class="divider"></div>
@@ -91,48 +123,83 @@ export default {
 
         <v-list density="compact" nav>
           <v-window v-model="tab">
-            <v-list>
-              <v-list-subheader>คิวเครื่องซักผ้าของคุณ</v-list-subheader>
+            <v-window-item value="allQueue">
+              <v-list>
+                <v-list-subheader>คิวเครื่องซักผ้าในตอนนี้</v-list-subheader>
 
-              <v-list-item
-                v-for="(queue, i) in user.queueList"
-                :key="i"
-                :value="queue.store"
-                color="primary"
-                rounded="shaped"
-              >
-                <template v-slot:prepend>
-                  <v-icon :icon="'mdi-store'"></v-icon>
-                </template>
+                <v-list-item
+                  v-for="(machine, i) in storeQueue.getQueue()"
+                  :key="i"
+                  :value="machine"
+                  color="primary"
+                  rounded="shaped"
+                >
+                  <template v-slot:prepend>
+                    <v-icon :icon="'mdi-washing-machine'"></v-icon>
+                  </template>
 
-                <v-list>
-                  <v-list-subheader>คิวเครื่องซักผ้าของคุณ</v-list-subheader>
-
-                  <v-list-item
-                    v-for="(machine, i) in queue.machine"
-                    :key="i"
-                    :value="machine"
-                    color="primary"
-                    rounded="shaped"
-                  >
-                    <template v-slot:prepend>
-                      <v-icon :icon="'mdi-store'"></v-icon>
-                    </template>
-
-                    <v-list-item-title :v-text="machine.name"></v-list-item-title>
-                  </v-list-item>
-                </v-list>
-
-                <v-list-item-title :v-text="queue.store.name"></v-list-item-title>
-              </v-list-item>
-
-              <div v-if="user.queueList.length < 1" class="text-sm text-slate-500 divider">
+                  <template v-slot:subtitle>
+                    <div class="flex flex-col gap-2">
+                      <h1 class="text-base font-semibold">
+                        {{ machine.name }}
+                      </h1>
+                      <p class="font-light text-sm">
+                        <v-icon icon="mdi-alarm"> </v-icon>
+                        {{ machine.timeLeft }} วินาที
+                      </p>
+                    </div>
+                  </template>
+                </v-list-item>
+              </v-list>
+              <div v-if="storeQueue.getQueue().length < 1" class="text-sm text-slate-500 divider">
                 ยังไม่มีคิวที่ดำเนินการอยู่ในขณะนี้
               </div>
-            </v-list>
+            </v-window-item>
+            <v-window-item value="myQueue">
+              <v-list>
+                <v-list-subheader>คิวเครื่องซักผ้าของคุณ</v-list-subheader>
+
+                <v-list-item
+                  v-for="userMachineQueue in userQueue"
+                  :key="userMachineQueue.id"
+                  :value="userMachineQueue"
+                  color="primary"
+                  rounded="shaped"
+                >
+                  <template v-slot:prepend>
+                    <v-icon icon="mdi-washing-machine"></v-icon>
+                  </template>
+
+                  <template v-slot:subtitle>
+                    <div class="flex flex-col gap-2">
+                      <h1 class="text-base font-semibold">
+                        {{ userMachineQueue.name }}
+                      </h1>
+                      <p class="font-light text-sm">
+                        <v-icon icon="mdi-alarm"> </v-icon>
+                        {{ userMachineQueue.timeLeft }} วินาที
+                      </p>
+                    </div>
+                  </template>
+                </v-list-item>
+
+                <div v-if="userQueue.length < 1" class="text-sm text-slate-500 divider">
+                  ยังไม่มีคิวที่ดำเนินการอยู่ในขณะนี้
+                </div>
+              </v-list>
+            </v-window-item>
           </v-window>
         </v-list>
       </v-card>
     </div>
   </v-navigation-drawer>
 </template>
+
+<style scoped>
+.v-navigation-drawer {
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+  height: 100vh !important;
+}
+</style>
