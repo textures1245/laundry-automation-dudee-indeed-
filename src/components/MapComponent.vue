@@ -61,6 +61,7 @@ export default {
               icon: {
                 html: ` <div class="avatar skeleton   rounded-full">
      <div class="w-9 bg-opacity-animation  rounded-full p-3 animate-pulse transition-all duration-150 ease-in-out  bg-primary/60"><img  src="${launddyIcon}" /></div>
+     <div class="w-4 absolute left-[18%] top-[18%] -z-10 bg-opacity-animation  rounded-full p-3 animate-ping   bg-primary/60"></div>
   </div>`,
                 offset: { x: 12, y: 45 }
               },
@@ -68,7 +69,7 @@ export default {
                 html: `
                 <div class="card w-32">
                   <div class="alert flex flex-col alert-secondary">
-                    <div class="divider  -my-1 text-base">${ store.laundryStore.name }</div>
+                    <div class="divider  -my-1 text-base">${store.laundryStore.name}</div>
       
       <div>จำนวนเครื่องซักผ้า: ${store.washingMachines.length}</div>
       <button class="btn btn-xs btn-info" onclick="navigateToStore('${store.laundryStore.id}')">
@@ -104,8 +105,6 @@ export default {
 
 <template>
   <div class="h-screen" id="map"></div>
-
-  
 </template>
 
 <style scoped>

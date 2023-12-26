@@ -57,29 +57,57 @@ export const useLaundryStore = defineStore('useLaundryStore', {
       userLocation: ICoordinates,
       amountOfStore = 10,
       amountOfMachine = 10
-    ): LaundryState[] {
-      const stores: LaundryState[] = []
-      for (let i = 0; i < amountOfStore; i++) {
-        const sample = {
-          id: `store-${i}`,
-          name: `Store ${i}`,
-          coordinate: generateCoordinateNearUserLocation(userLocation)
+    ): Promise<LaundryState[]> {
+      return new Promise((resolve) => {
+        const stores: LaundryState[] = []
+        for (let i = 0; i < amountOfStore; i++) {
+          const sample = {
+            id: `store-${i}`,
+            name: `Store ${i}`,
+            coordinate: generateCoordinateNearUserLocation(userLocation)
+          }
+          const { id, name, coordinate } = sample
+
+          const laundryStore = new LaundryStore(id, name, coordinate)
+          const washingMachines = generateWashingMachines(amountOfMachine, id)
+          const queue = new QueueOperation(laundryStore, [])
+
+          stores.push({
+            laundryStore,
+            washingMachines,
+            queue
+          })
         }
-        const { id, name, coordinate } = sample
 
-        const laundryStore = new LaundryStore(id, name, coordinate)
-        const washingMachines = generateWashingMachines(amountOfMachine, id)
-        const queue = new QueueOperation(laundryStore, [])
+        this.$state.laundryStates = [...this.$state.laundryStates, ...stores]
+        resolve(stores)
+      })
+    },
 
-        stores.push({
-          laundryStore,
-          washingMachines,
-          queue
+    randomizeToRunningMachines(amountOfMachine = 5) {
+      console.log(this.$state.laundryStates[0].washingMachines.length)
+      if (amountOfMachine < this.$state.laundryStates[0].washingMachines.length) {
+        const stores = this.$state.laundryStates
+        stores.forEach((store) => {
+          const machines = [...store.washingMachines] 
+
+          for (let i = 0; i < amountOfMachine; i++) {
+            const randomIndex = Math.floor(Math.random() * machines.length)
+            const randomMachine = machines[randomIndex]
+            machines.splice(randomIndex, 1)
+
+            const randomTimeUnder180Sec = Math.floor(Math.random() * 180) + 1
+            randomMachine.startWashing(
+              randomTimeUnder180Sec,
+              store.queue as QueueOperation,
+              null,
+              store.laundryStore
+            )
+          }
         })
+      } else {
+        throw new Error('Amount of machine is greater than the amount of machine in the store')
       }
-
-      this.$state.laundryStates = [...this.$state.laundryStates, ...stores]
-      return stores
     }
   }
 })

@@ -8,6 +8,7 @@ import { useNotificationStore } from '../services/store/notificationStore'
 import { storeToRefs } from 'pinia'
 import type { User } from '@/services/classes/User'
 import NotificationDrawer from '@/components/NotificationDrawer.vue'
+import { Toast } from '@/components/Toast'
 
 export default {
   name: 'DashboardView',
@@ -16,15 +17,19 @@ export default {
     const currentUserLocation = await getGeoRequest()
 
     const user = { username: 'Traiphakh Sittikaew', balance: 1000 }
+    const laundryState = useLaundryStore()
 
     if (currentUserLocation) {
       useUserStore().setUser(user, currentUserLocation)
-      useLaundryStore().generateLaundryStore(currentUserLocation, 5, 10)
       useNotificationStore().setNotification([])
-
-      console.log(useLaundryStore().getLaundryStore)
+      await laundryState.generateLaundryStore(currentUserLocation, 5, 10)
+      laundryState.randomizeToRunningMachines(3)
     } else {
-      console.error('Cannot get current location')
+      Toast.fire({
+        icon: 'error',
+        title:
+          'เนื่องจากแอปพลิเคชันจำเป็นต้องเข้าถึงตำแหน่งปัจจุบันของคุณ เพื่อทำงานให้ได้เต็มประสิทธิภาพกรุณาเปิดใช้งานตำแหน่งปัจจุบันของคุณ'
+      })
     }
 
     return {

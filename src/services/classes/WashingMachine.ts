@@ -20,36 +20,46 @@ export class WashingMachine implements IWashingMachine {
     this.name = name
   }
 
-  startWashing(second: number, storeQueue: QueueOperation, user: User, store: LaundryStore): void {
+  startWashing(
+    second: number,
+    storeQueue: QueueOperation,
+    user: User | null,
+    store: LaundryStore
+  ): void {
     this.isAvailable = false
     this.timeLeft = second
     this.fromTime = second
     storeQueue.enqueue(this)
-    const userQueue = user.addQueue(store, this)
+    let userQueue: QueueOperation | null = null
+    if (user) {
+      userQueue = user.addQueue(store, this)
+      this.setTimeLeftInterval(user)
+    } else {
+      this.setTimeLeftInterval(null)
+    }
 
-    this.setTimeLeftInterval(user)
     setTimeout(() => {
       this.isAvailable = true
       storeQueue.dequeue()
-      const onDequeueUserQueueList = {
-        user: user,
-        onDequeueQueueList: storeQueue
+      if (userQueue && user) {
+        const onDequeueUserQueueList = {
+          user: user,
+          onDequeueQueueList: storeQueue
+        }
+        userQueue.dequeue(onDequeueUserQueueList)
       }
-      userQueue.dequeue(onDequeueUserQueueList)
-
-    
     }, second * 1000)
   }
 
-  setTimeLeftInterval(user: User): void {
+  setTimeLeftInterval(user: User | null): void {
     this.timeInterval = setInterval(() => {
       if (this.timeLeft > 0) {
-        this.timeLeft--
+        this.timeLeft-- 
         if (this.timeLeft === 60) {
-          useNotificationStore().notifyMachineUnderMinute(user, this, 'info')
+          if (user) useNotificationStore().notifyMachineUnderMinute(user, this, 'info')
         }
       } else {
-        useNotificationStore().notifyMachineSuccess(user, this, 'success')
+        if (user) useNotificationStore().notifyMachineSuccess(user, this, 'success')
         clearInterval(this.timeInterval)
         this.fromTime = 0
       }
