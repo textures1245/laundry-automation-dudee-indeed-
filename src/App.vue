@@ -7,18 +7,18 @@ export default {
 
 <template>
   <div data-theme="winter">
+    <Suspense>
     <router-view v-slot="{ Component }">
-      <Suspense>
         <keep-alive include="DashboardView">
           <component :is="Component" />
         </keep-alive>
-        <template #fallback>
-          <div>
-            <LoadingView />
-          </div>
-        </template>
-      </Suspense>
-    </router-view>
+      </router-view>
+      <template #fallback>
+        <div>
+          <LoadingView />
+        </div>
+      </template>
+    </Suspense>
   </div>
 </template>
 

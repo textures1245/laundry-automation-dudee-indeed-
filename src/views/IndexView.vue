@@ -1,3 +1,6 @@
+<script setup lang="ts">
+import HeroSection from '@/components/index-components/HeroSection.vue'
+</script>
 <template>
-  <div></div>
+  <HeroSection />
 </template>

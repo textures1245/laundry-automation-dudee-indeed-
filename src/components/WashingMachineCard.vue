@@ -5,8 +5,12 @@ import type { User } from '@/services/classes/User'
 import type { LaundryStore } from '@/services/classes/LaundryStore'
 import type QueueOperation from '@/services/classes/QueueOperation'
 import { useNotificationStore } from '@/services/store/notificationStore'
+import WashingAnimation from '@/components/WashingAnimation.vue'
 
 export default {
+  components: {
+    WashingAnimation
+  },
   props: {
     machine: {
       type: Object as PropType<WashingMachine>,
@@ -87,12 +91,17 @@ export default {
         <div v-if="!machine.isAvailable" class="relative">
           <div
             style="opacity: 100% !important"
-            class="absolute -top-[4.2rem] -left-[1.15rem] translate-x-1/2 z-50"
+            class="absolute -top-[4.5rem] -left-[1.5rem] translate-x-1/2 z-50"
           >
+            <div class="relative">
+              <div class="absolute -top-[2.90rem] -left-[1.5rem]">
+                <WashingAnimation />
+              </div>
+            </div>
             <v-progress-circular
               :rotate="360"
-              :size="145"
-              :width="18"
+              :size="150"
+              :width="14"
               class="text-lg font-semibold"
               :model-value="onProgression"
               color="warning"
