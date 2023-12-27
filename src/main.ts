@@ -2,6 +2,9 @@
 import './style.postcss'
 import 'iconify-icon'
 import 'animate.css'
+import AOS from 'aos'
+import 'aos/dist/aos.css' // You can also use <link> for styles
+// ..
 
 import App from '@/App.vue'
 import router from './router'
@@ -33,6 +36,8 @@ script.setAttribute('type', 'text/javascript')
 document.head.appendChild(script)
 
 const app = createApp(App)
+
+AOS.init()
 
 app.use(createPinia())
 

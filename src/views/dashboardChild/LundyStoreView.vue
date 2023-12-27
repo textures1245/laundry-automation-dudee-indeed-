@@ -27,35 +27,33 @@ export default {
 
 <template>
   <div>
-    <v-app>
-      <v-layout>
-        <LandryStoreDrawer
-          :storeQueue="laundryState.queue as QueueOperation"
-          :laundry-store="laundryState.laundryStore"
-          :user="userRef as User"
-          :machines="laundryState.washingMachines as WashingMachine[]"
-        />
-        <v-main class="h-full w-full">
-          <div class="container space-y-8 mx-auto">
-            <div class="divider text-3xl mt-8">
-              <div class="badge badge-primary badge-lg text-xl p-4">
-                เครื่องซักผ้าร้าน {{ laundryState.laundryStore.name ?? 'none' }}
-              </div>
-            </div>
-            <div class="flex justify-center items-center flex-wrap gap-10">
-              <WashingMachineCard
-                :storeQueue="laundryState.queue as QueueOperation"
-                :laundry-store="laundryState.laundryStore"
-                v-for="machine of laundryState.washingMachines"
-                :key="machine.id"
-                :machine="machine as WashingMachine"
-                :user="userRef as User"
-              />
+    <v-layout>
+      <LandryStoreDrawer
+        :storeQueue="laundryState.queue as QueueOperation"
+        :laundry-store="laundryState.laundryStore"
+        :user="userRef as User"
+        :machines="laundryState.washingMachines as WashingMachine[]"
+      />
+      <v-main class="h-full w-full">
+        <div class="container space-y-8 mx-auto">
+          <div class="divider text-3xl mt-8">
+            <div class="badge badge-primary badge-lg text-xl p-4">
+              เครื่องซักผ้าร้าน {{ laundryState.laundryStore.name ?? 'none' }}
             </div>
           </div>
-        </v-main>
-        <NotificationDrawer :user="userRef as User" />
-      </v-layout>
-    </v-app>
+          <div class="flex justify-center items-center flex-wrap gap-10">
+            <WashingMachineCard
+              :storeQueue="laundryState.queue as QueueOperation"
+              :laundry-store="laundryState.laundryStore"
+              v-for="machine of laundryState.washingMachines"
+              :key="machine.id"
+              :machine="machine as WashingMachine"
+              :user="userRef as User"
+            />
+          </div>
+        </div>
+      </v-main>
+      <NotificationDrawer :user="userRef as User" />
+    </v-layout>
   </div>
 </template>

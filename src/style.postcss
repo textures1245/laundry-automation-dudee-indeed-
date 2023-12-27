@@ -3,6 +3,16 @@
 @tailwind utilities;
 
 @layer components {
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai&family=Roboto&display=swap');
+
+  .body {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .gradient-heading {
+    @apply bg-clip-text text-transparent box-decoration-clone;
+  }
+
   .my-toast .swal2-content {
     display: none !important;
   }

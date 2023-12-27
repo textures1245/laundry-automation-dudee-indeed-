@@ -12,17 +12,15 @@ const asSmSize = computed(() => {
 </script>
 
 <template>
-  <v-app>
-    <v-layout>
-      <v-skeleton-loader
-        class="mx-auto border"
-        max-width="300"
-        type="card, button, button, divider, list-item-three-line,list-item-three-line	,list-item-three-line, list-item-three-line		"
-      >
-      </v-skeleton-loader>
-      <v-container>
-        <v-skeleton-loader class="w-full mx-auto h-full border" type="ossein"></v-skeleton-loader>
-      </v-container>
-    </v-layout>
-  </v-app>
+  <v-layout>
+    <v-skeleton-loader
+      class="mx-auto border"
+      max-width="300"
+      type="card, button, button, divider, list-item-three-line,list-item-three-line	,list-item-three-line, list-item-three-line		"
+    >
+    </v-skeleton-loader>
+    <v-container>
+      <v-skeleton-loader class="w-full mx-auto h-full border" type="ossein"></v-skeleton-loader>
+    </v-container>
+  </v-layout>
 </template>
