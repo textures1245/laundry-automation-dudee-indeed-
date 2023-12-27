@@ -81,6 +81,7 @@ export default {
     temporary
     class="fixed bg-fixed"
     app
+    elevation="6"
     width="300"
     :class="!rail ? 'p-3' : 'p-0'"
     location="left"
@@ -151,7 +152,7 @@ export default {
                         v-if="machine.isBooked"
                         size="small"
                         color="primary"
-                        class="font-light text-sm animate__animated animate__bounceIn "
+                        class="font-light text-sm animate__animated animate__bounceIn"
                       >
                         <v-icon icon="mdi-bookmark-outline"> </v-icon>
                         ทำเครื่องหมายแจ้งเตือนไว้

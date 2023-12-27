@@ -50,7 +50,10 @@ export default {
       if (
         this.user.useWashingMachine(this.machine, cost, +time, this.storeQueue, this.laundryStore)
       ) {
-        this.notificationStore.sendNotification(this.user, 'ใช้งานเครื่องซักผ้าสำเร็จ', 'success')
+        this.notificationStore.sendNotification(
+          this.user,
+          `จากร้าน: ${this.laundryStore.name} ใช้งานเครื่องซักผ้าหมายเลข ${this.machine.name} สำเร็จ', 'success`
+        )
       } else {
         this.notificationStore.sendNotification(
           this.user,
@@ -61,6 +64,11 @@ export default {
     },
     onBookedMachine() {
       this.machine.onBooked(this.user)
+      this.notificationStore.sendNotification(
+        this.user,
+        `จากร้าน: ${this.laundryStore.name} ทำการจองเครื่องซักผ้าหมายเลข ${this.machine.name} สำเร็จ`,
+        'success'
+      )
     }
   }
 }

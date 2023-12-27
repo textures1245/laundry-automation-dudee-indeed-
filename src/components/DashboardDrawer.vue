@@ -69,6 +69,7 @@ export default {
   <v-navigation-drawer
     fixed
     temporary
+    elevation="6" 
     width="300"
     :class="!rail ? 'p-3' : 'p-0'"
     location="left"

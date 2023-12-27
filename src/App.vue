@@ -1,18 +1,24 @@
 <script lang="ts">
+import LoadingView from '@/views/assets/LoadingView.vue'
 export default {
-  components: {}
+  components: { LoadingView }
 }
 </script>
 
 <template>
   <div data-theme="winter">
-    <Suspense>
-      <router-view v-slot="{ Component }">
+    <router-view v-slot="{ Component }">
+      <Suspense>
         <keep-alive include="DashboardView">
           <component :is="Component" />
         </keep-alive>
-      </router-view>
-    </Suspense>
+        <template #fallback>
+          <div>
+            <LoadingView />
+          </div>
+        </template>
+      </Suspense>
+    </router-view>
   </div>
 </template>
 

@@ -9,10 +9,11 @@ import { storeToRefs } from 'pinia'
 import type { User } from '@/services/classes/User'
 import NotificationDrawer from '@/components/NotificationDrawer.vue'
 import { Toast } from '@/components/Toast'
+import LoadingView from '@/views/assets/LoadingView.vue'
 
 export default {
   name: 'DashboardView',
-  components: { MapComponent, DashboardDrawer, NotificationDrawer },
+  components: { MapComponent, DashboardDrawer, NotificationDrawer, LoadingView },
   async setup() {
     const currentUserLocation = await getGeoRequest()
 
