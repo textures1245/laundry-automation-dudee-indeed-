@@ -7,6 +7,7 @@ import { useNotificationStore } from '@/services/store/notificationStore'
 import { useUserStore } from '../services/store/userStore'
 import { useLaundryStore } from '@/services/store'
 import QueueOperation from '../services/classes/QueueOperation'
+import myAvatarPic from '@/assets/my-avatar.jpeg'
 
 export default {
   components: { CoinSettingDialog },
@@ -25,7 +26,8 @@ export default {
         { value: 'userQueue', text: 'คิวของฉัน' },
         { value: 'reserveQueue', text: 'คิวที่รอแจ้งเตือน' }
       ],
-      queueState: useLaundryStore().getLandryQueues
+      queueState: useLaundryStore().getLandryQueues,
+      myAvatar: myAvatarPic
     }
   },
   computed: {
@@ -69,7 +71,7 @@ export default {
   <v-navigation-drawer
     fixed
     temporary
-    elevation="6" 
+    elevation="6"
     width="300"
     :class="!rail ? 'p-3' : 'p-0'"
     location="left"
@@ -79,11 +81,29 @@ export default {
     @click="rail = false"
   >
     <div class="space-y-3">
-      <v-list-item
-        prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
-        :title="user.username"
-        nav
-      >
+      <v-list-item :prepend-avatar="myAvatar" :title="user.username" nav>
+        <template v-slot:subtitle>
+          <div class="flex flex-col gap-2 mt-2">
+            <v-chip
+              :link="true"
+              target="_blank"
+              size="small"
+              href="https://github.com/textures1245/"
+              variant="flat"
+              color="black"
+              >Github</v-chip
+            >
+            <v-chip
+              :link="true"
+              target="_blank"
+              size="small"
+              href="https://resume-gamma-topaz.vercel.app"
+              variant="flat"
+              color="primary"
+              >Resume</v-chip
+            >
+          </div>
+        </template>
         <template v-slot:append>
           <v-btn variant="text" icon="mdi-chevron-left" @click.stop="drawer = !drawer"></v-btn>
         </template>

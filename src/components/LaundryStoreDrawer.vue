@@ -6,6 +6,7 @@ import type { LaundryStore } from '@/services/classes/LaundryStore'
 import { WashingMachine } from '../services/classes/WashingMachine'
 import QueueOperation from '../services/classes/QueueOperation'
 import { useDisplay } from 'vuetify/lib/framework.mjs'
+import myAvatarPic from '@/assets/my-avatar.jpeg'
 
 export default {
   name: 'LandryStoreDrawer',
@@ -31,7 +32,8 @@ export default {
       tabOptions: [
         { value: 'allQueue', text: 'คิวทั้งหมด' },
         { value: 'myQueue', text: 'คิวของฉัน' }
-      ]
+      ],
+      myAvatar: myAvatarPic
     }
   },
   computed: {
@@ -91,13 +93,31 @@ export default {
     @click="rail = false"
   >
     <div class="space-y-3">
-      <v-list-item
-        prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
-        :title="user.username"
-        nav
-      >
+      <v-list-item :prepend-avatar="myAvatar" :title="user.username" nav>
         <template v-slot:append>
           <v-btn variant="text" icon="mdi-chevron-left" @click.stop="drawer = !drawer"></v-btn>
+        </template>
+        <template v-slot:subtitle>
+          <div class="flex flex-col gap-2 mt-2">
+            <v-chip
+              :link="true"
+              target="_blank"
+              size="small"
+              href="https://github.com/textures1245/"
+              variant="flat"
+              color="black"
+              >Github</v-chip
+            >
+            <v-chip
+              :link="true"
+              target="_blank"
+              size="small"
+              href="https://resume-gamma-topaz.vercel.app"
+              variant="flat"
+              color="primary"
+              >Resume</v-chip
+            >
+          </div>
         </template>
       </v-list-item>
 
