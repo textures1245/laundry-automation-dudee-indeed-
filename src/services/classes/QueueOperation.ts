@@ -17,12 +17,15 @@ class QueueOperation implements IQueueOperations {
     // Implement queue logic
   }
 
-  dequeue(onDequeueUserQueueList?: { user: User; onDequeueQueueList: QueueOperation }) {
-    this.machinesOnQueue.shift()
+  dequeue(machineToDequeued: WashingMachine, onDequeueUserQueueList?: { user: User }) {
+    this.machinesOnQueue.splice(this.machinesOnQueue.indexOf(machineToDequeued), 1)
     if (onDequeueUserQueueList) {
-      const { user, onDequeueQueueList } = onDequeueUserQueueList
-      if (onDequeueQueueList.machinesOnQueue.length < 1) {
-        user.queueList.splice(user.queueList.indexOf(onDequeueQueueList), 1)
+      const { user } = onDequeueUserQueueList
+      console.log('inside queue')
+      const userQueue = user.queueList.find((queue) => queue.store.id === this.store.id)!
+      if (userQueue.machinesOnQueue.length < 1) {
+        console.log('remove queue')
+        user.queueList.splice(user.queueList.indexOf(userQueue), 1)
       }
     }
   }

@@ -50,7 +50,7 @@ export default {
     </div>
   </div>
   <v-navigation-drawer
-  fixed
+    fixed
     temporary
     width="300"
     :class="!rail ? 'p-3' : 'p-0'"

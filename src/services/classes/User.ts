@@ -1,4 +1,4 @@
-import type { ICoordinates, IUser } from '../type'
+import type { ICoordinates, IQueue, IUser } from '../type'
 import type { LaundryStore } from './LaundryStore'
 import QueueOperation from './QueueOperation'
 import VirtualCoins from './VirtualCoins'
@@ -38,6 +38,17 @@ export class User implements IUser {
       this.queueList.push(newQueue)
       return newQueue
     }
+  }
+
+  getAllReserveQueue(allQueue: QueueOperation[]): IQueue[] {
+    const reservedQueue = allQueue
+      .filter((queue) => queue.machinesOnQueue.some((machine) => machine.isBooked))
+      .map((queue) => ({
+        store: queue.store,
+        machinesOnQueue: queue.machinesOnQueue.filter((machine) => machine.isBooked)
+      })) as QueueOperation[]
+    console.log(reservedQueue)
+    return reservedQueue
   }
 
   useWashingMachine(

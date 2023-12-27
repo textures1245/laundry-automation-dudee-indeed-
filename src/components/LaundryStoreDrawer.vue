@@ -147,6 +147,15 @@ export default {
                         <v-icon icon="mdi-alarm"> </v-icon>
                         {{ machine.timeLeft }} วินาที
                       </p>
+                      <v-chip
+                        v-if="machine.isBooked"
+                        size="small"
+                        color="primary"
+                        class="font-light text-sm animate__animated animate__bounceIn "
+                      >
+                        <v-icon icon="mdi-bookmark-outline"> </v-icon>
+                        ทำเครื่องหมายแจ้งเตือนไว้
+                      </v-chip>
                     </div>
                   </template>
                 </v-list-item>

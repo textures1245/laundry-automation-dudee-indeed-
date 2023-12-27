@@ -22,7 +22,22 @@ export const useNotificationStore = defineStore('useNotificationStore', {
     },
 
     notifyMachineSuccess(user: User, machine: WashingMachine, icon?: SweetAlertIcon) {
-      const notification = new Notification(user, `เครื่องปั่นหมายเลย ${machine.name} `, machine)
+      const notification = new Notification(user, `ร้าน: ${machine.storeId} เครื่องปั่นหมายเลข ${machine.name} ทำงานเส็จเรียบร้อบแล้ว`, machine)
+      Toast.fire({
+        icon: icon ?? 'info',
+        title: `ข้อความจากร้าน ${machine.storeId}`,
+        text: notification.message,
+        footer: `เมื่อ ${notification.date.toLocaleString()}`
+      })
+      this.$state.notification.push(notification)
+    },
+
+    notifyMachineWhenReady(user: User, machine: WashingMachine, icon?: SweetAlertIcon) {
+      const notification = new Notification(
+        user,
+        `จากร้าน: ${machine.storeId},เครื่องปั่นหมายเลข ${machine.name} พร้อมใช้งานแล้ว `,
+        machine
+      )
       Toast.fire({
         icon: icon ?? 'info',
         title: `ข้อความจากร้าน ${machine.storeId}`,

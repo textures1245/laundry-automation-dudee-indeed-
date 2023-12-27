@@ -9,6 +9,7 @@ export class WashingMachine implements IWashingMachine {
   public storeId: string
   public name: string
   public isAvailable: boolean = true
+  public isBooked: boolean = false
 
   public fromTime: number = 0
   public timeLeft: number = 0
@@ -40,21 +41,38 @@ export class WashingMachine implements IWashingMachine {
 
     setTimeout(() => {
       this.isAvailable = true
-      storeQueue.dequeue()
+      storeQueue.dequeue(this)
       if (userQueue && user) {
         const onDequeueUserQueueList = {
-          user: user,
-          onDequeueQueueList: storeQueue
+          user: user
         }
-        userQueue.dequeue(onDequeueUserQueueList)
+        userQueue.dequeue(this, onDequeueUserQueueList)
       }
     }, second * 1000)
+  }
+
+  onBooked(user: User) {
+    this.isBooked = true
+    let timeInterval: NodeJS.Timeout = setInterval(() => {}, 0)
+    if (this.timeLeft > 0) {
+      timeInterval = setInterval(() => {
+        if (this.timeLeft > 0) {
+          if (this.timeLeft === 60) {
+            if (user) useNotificationStore().notifyMachineUnderMinute(user, this, 'info')
+          }
+        } else {
+          this.isBooked = false
+          clearInterval(timeInterval)
+          if (user) useNotificationStore().notifyMachineWhenReady(user, this, 'success')
+        }
+      }, 1000)
+    }
   }
 
   setTimeLeftInterval(user: User | null): void {
     this.timeInterval = setInterval(() => {
       if (this.timeLeft > 0) {
-        this.timeLeft-- 
+        this.timeLeft--
         if (this.timeLeft === 60) {
           if (user) useNotificationStore().notifyMachineUnderMinute(user, this, 'info')
         }

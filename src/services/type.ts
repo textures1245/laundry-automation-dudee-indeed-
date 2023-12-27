@@ -43,7 +43,7 @@ interface IWashingMachineOperations extends IGetTimeLeftInterval {
 
 interface IQueueOperations {
   enqueue(machine: WashingMachine): void
-  dequeue(onDequeueUserQueueList?: { user: User; onDequeueQueueList: QueueOperation }): void
+  dequeue(machineToDequeued: WashingMachine, onDequeueUserQueueList?: { user: User }): void
   getQueue(): WashingMachine[]
 }
 
@@ -53,7 +53,12 @@ interface IMapOperations {
 }
 
 interface ILaundryStoreOperations {
-  getQueue(): IQueueOperations
+  getStore(): {
+    id: string
+    name: string
+    location: ICoordinates
+  }
+
   notifyUser(): void
 }
 
@@ -104,6 +109,11 @@ interface IGetTimeLeftInterval {
   getTimeLeftInterval(): number
 }
 
+interface IQueue {
+  store: LaundryStore
+  machinesOnQueue: WashingMachine[]
+}
+
 export type {
   ICoordinates,
   IMachineNotification,
@@ -120,5 +130,6 @@ export type {
   INotification,
   ILaundryStore,
   IMap,
+  IQueue,
   IGetTimeLeftInterval
 }

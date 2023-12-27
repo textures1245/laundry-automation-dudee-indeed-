@@ -35,7 +35,12 @@ export default {
   },
   computed: {
     onProgression() {
-      return Math.floor((this.machine.timeLeft / this.machine.fromTime) * 100)
+      return 100 - Math.floor((this.machine.timeLeft / this.machine.fromTime) * 100)
+    },
+
+    checkIfMachineHasUseByUser() {
+      const userQueue = this.user.queueList.find((s) => s.store.id === this.laundryStore.id)
+      return userQueue ? userQueue.machinesOnQueue.find((m) => m.id === this.machine.id) : null
     }
   },
   methods: {
@@ -53,6 +58,9 @@ export default {
           'error'
         )
       }
+    },
+    onBookedMachine() {
+      this.machine.onBooked(this.user)
     }
   }
 }
@@ -61,20 +69,23 @@ export default {
 <template>
   <div class="flex flex-col items-center">
     <div
-      :class="machine.isAvailable ? '' : 'skeleton animate__headShake'"
-      class="card w-64 z-0 bg-base-100 shadow-lg border-sm"
+      class="card w-64 transition-all duration-500 ease-in-out z-0 bg-base-100 shadow-lg border-sm"
     >
-      <figure>
+      <figure
+        :class="
+          machine.isAvailable ? '' : 'animate__animated animate__infinite   animate__headShake'
+        "
+      >
         <div v-if="!machine.isAvailable" class="relative">
           <div
             style="opacity: 100% !important"
-            class="absolute -top-[2.70rem] -left-[0.5rem] translate-x-1/2 z-50"
+            class="absolute -top-[4.2rem] -left-[1.15rem] translate-x-1/2 z-50"
           >
             <v-progress-circular
               :rotate="360"
-              :size="135"
+              :size="145"
               :width="18"
-              class="!opacity-90 text-lg font-semibold"
+              class="text-lg font-semibold"
               :model-value="onProgression"
               color="warning"
             >
@@ -83,9 +94,9 @@ export default {
           </div>
         </div>
         <img
-          :class="machine.isAvailable ? 'opacity-100' : 'opacity-50 blur-[1px] skeleton'"
-          src="@/assets/washing-machine.png"
-          class="pt-4"
+          :class="machine.isAvailable ? 'opacity-100' : 'opacity-50  blur-[2px]'"
+          src="@/assets/washing-machine-2.png"
+          class="pt-4 drop-shadow-2xl shadow-blue-500 transition-all duration-500 ease-in-out"
           alt="washing-machine-image"
         />
       </figure>
@@ -149,6 +160,15 @@ export default {
               <div class="text-sm text-slate-500 divider">
                 <h1>เครื่องกำลังใช้งานอยู่ในขณะนี้</h1>
               </div>
+              <v-btn
+                v-if="!checkIfMachineHasUseByUser"
+                :disabled="machine.isBooked"
+                @click="() => onBookedMachine()"
+                variant="flat"
+                size="small"
+                color="info"
+                >แจ้งเตือนฉันเมื่อเครื่องทำงานเสร็จ</v-btn
+              >
             </v-card-text>
           </div>
         </div>

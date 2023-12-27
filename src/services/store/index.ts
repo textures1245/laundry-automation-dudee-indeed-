@@ -50,7 +50,8 @@ export const useLaundryStore = defineStore('useLaundryStore', {
       return (storeId: string) =>
         state.laundryStates.find((store) => store.laundryStore.id === storeId)
     },
-    getLaundryStore: (state) => state.laundryStates
+    getLaundryStore: (state) => state.laundryStates,
+    getLandryQueues: (state) => state.laundryStates.map((state) => state.queue) as QueueOperation[]
   },
   actions: {
     generateLaundryStore(
@@ -89,12 +90,14 @@ export const useLaundryStore = defineStore('useLaundryStore', {
       if (amountOfMachine < this.$state.laundryStates[0].washingMachines.length) {
         const stores = this.$state.laundryStates
         stores.forEach((store) => {
-          const machines = [...store.washingMachines] 
+          const machines = [...store.washingMachines]
 
           for (let i = 0; i < amountOfMachine; i++) {
             const randomIndex = Math.floor(Math.random() * machines.length)
             const randomMachine = machines[randomIndex]
             machines.splice(randomIndex, 1)
+
+            console.log(randomMachine)
 
             const randomTimeUnder180Sec = Math.floor(Math.random() * 180) + 1
             randomMachine.startWashing(

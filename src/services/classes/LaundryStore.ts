@@ -1,4 +1,4 @@
-import type { ICoordinates, ILaundryStore, IQueueOperations } from '../type'
+import type { ICoordinates, ILaundryStore } from '../type'
 
 export class LaundryStore implements ILaundryStore {
   id: string
@@ -11,8 +11,12 @@ export class LaundryStore implements ILaundryStore {
     this.location = location
   }
 
-  getQueue(): IQueueOperations {
-    throw new Error('Method not implemented.')
+  getStore() {
+    return {
+      id: this.id,
+      name: this.name,
+      location: this.location
+    }
   }
   notifyUser(): void {
     throw new Error('Method not implemented.')
