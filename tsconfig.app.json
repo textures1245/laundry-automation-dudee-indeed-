@@ -9,7 +9,6 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "isCustomElement": "(tag) => tag === 'dotlottie-player'"
+    }
   }
 }
