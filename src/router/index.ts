@@ -21,7 +21,8 @@ const router = createRouter({
       path: '/dashboard/:storeId',
       name: 'laundryStore',
       component: LundyStoreViewVue
-    }
+    },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: DashboardViewVue }
   ]
 })
 

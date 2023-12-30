@@ -1,26 +1,20 @@
 <script lang="ts">
-import { useDisplay } from 'vuetify/lib/framework.mjs'
+import { useDisplay } from 'vuetify'
 import CoinSettingDialog from './CoinSettingDialog.vue'
 import type { User } from '@/services/classes/User'
 import type { PropType } from 'vue'
 import { useNotificationStore } from '@/services/store/notificationStore'
-import { useUserStore } from '../services/store/userStore'
 import { useLaundryStore } from '@/services/store'
 import QueueOperation from '../services/classes/QueueOperation'
 import myAvatarPic from '@/assets/my-avatar.jpeg'
 
 export default {
   components: { CoinSettingDialog },
-  mounted() {
-    console.log(this.user)
-    return {}
-  },
   data() {
     return {
       drawer: true,
       rail: false,
       panel: [0, 1],
-      display: useDisplay(),
       tab: null,
       tabOptions: [
         { value: 'userQueue', text: 'คิวของฉัน' },
@@ -31,8 +25,16 @@ export default {
     }
   },
   computed: {
+    display() {
+      const display = useDisplay()
+      return {
+        smAndDown: display.smAndDown
+        // add other properties you need
+      }
+    },
     asSmSize() {
-      if (this.display.smAndDown) {
+      if (this.display.smAndDown.value) {
+        console.log('asSmSize', this.display.smAndDown.value)
         return false
       }
       return true
@@ -61,7 +63,7 @@ export default {
       <v-btn
         @click="() => (drawer = !drawer)"
         variant="flat"
-        class="!bg-opacity-20 "
+        class="!bg-opacity-20"
         :rounded="true"
         color="primary"
         icon="mdi-menu"

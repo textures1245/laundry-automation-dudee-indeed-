@@ -1,15 +1,4 @@
-<script lang="ts" setup>
-import { useDisplay } from 'vuetify/lib/framework.mjs'
-
-import { computed } from 'vue'
-
-const asSmSize = computed(() => {
-  if (useDisplay && useDisplay().smAndDown) {
-    return true
-  }
-  return false
-})
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <v-layout>

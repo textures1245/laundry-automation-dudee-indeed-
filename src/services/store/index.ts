@@ -86,7 +86,6 @@ export const useLaundryStore = defineStore('useLaundryStore', {
     },
 
     randomizeToRunningMachines(amountOfMachine = 5) {
-      console.log(this.$state.laundryStates[0].washingMachines.length)
       if (amountOfMachine < this.$state.laundryStates[0].washingMachines.length) {
         const stores = this.$state.laundryStates
         stores.forEach((store) => {
@@ -97,7 +96,6 @@ export const useLaundryStore = defineStore('useLaundryStore', {
             const randomMachine = machines[randomIndex]
             machines.splice(randomIndex, 1)
 
-            console.log(randomMachine)
 
             // random time under 180 sec but more than 100 sec
 

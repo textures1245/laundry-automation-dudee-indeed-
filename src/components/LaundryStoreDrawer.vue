@@ -5,7 +5,7 @@ import { type PropType, watch } from 'vue'
 import type { LaundryStore } from '@/services/classes/LaundryStore'
 import { WashingMachine } from '../services/classes/WashingMachine'
 import QueueOperation from '../services/classes/QueueOperation'
-import { useDisplay } from 'vuetify/lib/framework.mjs'
+import { useDisplay } from 'vuetify'
 import myAvatarPic from '@/assets/my-avatar.jpeg'
 
 export default {
@@ -25,7 +25,6 @@ export default {
       rail: false,
       panel: [0, 1],
       tab: null,
-      display: useDisplay(),
       userQueue:
         this.user.queueList.find((q) => q.store.id === this.laundryStore.id)?.machinesOnQueue ||
         ([] as WashingMachine[]),
@@ -37,8 +36,15 @@ export default {
     }
   },
   computed: {
+    display() {
+      const display = useDisplay()
+      return {
+        smAndDown: display.smAndDown
+        // add other properties you need
+      }
+    },
     asSmSize() {
-      if (this.display.smAndDown) {
+      if (this.display.smAndDown.value) {
         return false
       }
       return true

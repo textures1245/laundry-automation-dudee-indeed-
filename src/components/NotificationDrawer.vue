@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { User } from '@/services/classes/User'
 import type { PropType } from 'vue'
-import { useDisplay } from 'vuetify/lib/framework.mjs'
 import { useNotificationStore } from '../services/store/notificationStore'
+import { useDisplay } from 'vuetify'
 
 export default {
   components: {},
@@ -11,13 +11,19 @@ export default {
     return {
       drawer: false,
       rail: false,
-      panel: [0, 1],
-      display: useDisplay()
+      panel: [0, 1]
     }
   },
   computed: {
+    display() {
+      const display = useDisplay()
+      return {
+        smAndDown: display.smAndDown
+        // add other properties you need
+      }
+    },
     asSmSize() {
-      if (this.display.smAndDown) {
+      if (this.display.smAndDown.value) {
         return false
       }
       return true

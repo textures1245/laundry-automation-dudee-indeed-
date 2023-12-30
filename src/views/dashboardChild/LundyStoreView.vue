@@ -19,7 +19,7 @@ export default {
   },
   created() {
     if (!this.laundryState) {
-      this.$router.push('/dashboard')
+      this.$router.push('/dashboard').then(() => window.location.reload())
     }
   }
 }
