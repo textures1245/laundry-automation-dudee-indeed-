@@ -20,7 +20,6 @@
     "@tsparticles/confetti": "^3.0.3",
     "animate.css": "^4.1.1",
     "aos": "3.0.0-beta.6",
-    "genesis": "link:@formkit/themes/genesis",
     "iconify-icon": "^1.0.8",
     "longdo-map-vue": "^3.0.2",
     "pinia": "^2.1.7",
