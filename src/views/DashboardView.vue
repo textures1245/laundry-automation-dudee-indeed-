@@ -9,10 +9,11 @@ import { storeToRefs } from 'pinia'
 import type { User } from '@/services/classes/User'
 import NotificationDrawer from '@/components/NotificationDrawer.vue'
 import { Toast } from '@/components/Toast'
+import LoadingView from '@/views/assets/LoadingView.vue'
 
 export default {
   name: 'DashboardView',
-  components: { MapComponent, DashboardDrawer, NotificationDrawer },
+  components: { MapComponent, DashboardDrawer, NotificationDrawer, LoadingView },
   async setup() {
     const currentUserLocation = await getGeoRequest()
 
@@ -38,20 +39,27 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      fakeLoader: true
+    }
   },
-  mounted() {}
+  mounted() {
+    setTimeout(() => {
+      this.fakeLoader = false
+    }, 1500)
+  }
 }
 </script>
 
 <template>
   <div>
-    <v-layout>
+    <v-layout v-if="!fakeLoader">
       <DashboardDrawer :user="user as User" />
       <v-main class="h-full w-full">
         <MapComponent :zoom-num="16" :geo-location="currentUserLocation" />
       </v-main>
       <NotificationDrawer :user="user as User" />
     </v-layout>
+    <LoadingView v-else />
   </div>
 </template>

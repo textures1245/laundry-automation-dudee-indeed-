@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import WashingMachineImage from '@/assets/washing-machine-index.png'
+import WashineMachingLogo from '@/assets/washing-machine-logo.png'
+import WashingMachineIndexAsset from './assets/WashingMachineIndexAsset.vue'
 </script>
 
 <template>
   <div class="h-[70rem]">
     <div class="custom-shape-divider-bottom-1703686202 bg-base-200 pb-60">
-      <div class="h-[30rem] bg-gradient-to-t from-primary/70 to-primary/50">
+      <div class="h-[21rem] pt-10 bg-gradient-to-t from-primary/70 to-primary/50">
         <article class="flex flex-col items-center justify-center h-full">
           <article class="prose md:prose-xl lg:prose-2xl">
-            <h1 class="font-semibold text-center text-white">ร้านซักผ้าออนไลน์</h1>
+            <h1 class="font-semibold text-center text-white uppercase">Laundry Automation</h1>
             <h4 class="font-light text-center text-white">
               ร้านซักผ้าออนไลน์ที่ให้บริการซักผ้าและอบผ้าด้วยเครื่องซักผ้าอัตโนมัติ
             </h4>
@@ -27,10 +29,10 @@ import WashingMachineImage from '@/assets/washing-machine-index.png'
           class="shape-fill"
         ></path>
       </svg>
-      <div class="">
-
+      <div class="relative">
         <div class="absolute drop-shadow-2xl -translate-y-[85%] left-1/2 -translate-x-1/2">
-          <img class="max-w-min" :src="WashingMachineImage" alt="" />
+          <WashingMachineIndexAsset :asset="WashineMachingLogo" />
+          <!-- <img class="max-w-min" :src="WashingMachineImage" alt="" /> -->
         </div>
       </div>
     </div>

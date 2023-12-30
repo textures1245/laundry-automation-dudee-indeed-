@@ -19,8 +19,8 @@ const asSmSize = computed(() => {
       type="card, button, button, divider, list-item-three-line,list-item-three-line	,list-item-three-line, list-item-three-line		"
     >
     </v-skeleton-loader>
-    <v-container>
+    <div class="h-screen w-full">
       <v-skeleton-loader class="w-full mx-auto h-full border" type="ossein"></v-skeleton-loader>
-    </v-container>
+    </div>
   </v-layout>
 </template>

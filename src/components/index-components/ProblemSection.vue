@@ -3,7 +3,7 @@
     <section id="text">
       <div class="flex text-base-content flex-col items-center gap-40 justify-center">
         <article
-          class="prose prose-h1:text-6xl md:prose-2xl prose-headings:tracking-widest text-center space-y-48 font-bold"
+          class="prose prose-h1:text-6xl md:prose-2xl prose-headings:tracking-widest text-center space-y-36 font-bold"
         >
           <h2 data-aos-duration="1000" class="tracking-widest" data-aos="fade-down">
             ถึงเวลาซักผ้าที่กองไว้ตั้งนานแล้ว
@@ -18,7 +18,7 @@
           </h1>
         </article>
 
-        <div id="thinking_zone" class="my-28">
+        <div id="thinking_zone" class="my-28 overflow-hidden">
           <div id="chats-on-left-side" class="relative">
             <div class="grid grid-flow-row gap-y-12 lg:grid-flow-col place-items-center">
               <div class="flex flex-col gap-12">
@@ -77,44 +77,18 @@
           class="prose prose-h1:text-6xl md:prose-2xl prose-headings:tracking-widest text-center space-y-44 font-bold"
         >
           <h2 data-aos-duration="1000" data-aos="fade-down">ดูยุ่งยากใช่มั้ยหล่า</h2>
-          <h1 data-aos-duration="1000" class="gradient-heading bg-gradient-to-r from-primary to-secondary py-4" data-aos="fade-down">งั้นให้เราช่วยคุณสิ</h1>
-          <h2 data-aos-duration="1000" class="divider" data-aos="fade-down">ง่าย ๆ แค่ทำขั้นตอนตามนี้</h2>
+          <h1
+            data-aos-duration="1000"
+            class="gradient-heading bg-gradient-to-r from-primary to-secondary py-4"
+            data-aos="fade-down"
+          >
+            งั้นให้เราช่วยคุณสิ
+          </h1>
+          <h2 data-aos-duration="1000" class="divider" data-aos="fade-down">
+            ง่าย ๆ แค่ทำขั้นตอนตามนี้
+          </h2>
         </article>
       </div>
     </section>
   </div>
-
-  <!-- <div id="thinking_zone" class="my-40">
-    <div id="chats-on-left-side" class="relative">
-      <div class="absolute -left-3/4 -translate-y-10">
-        <div class="flex flex-col gap-12">
-          <div class="chat chat-end">
-            <div class="chat-bubble text-2xl chat-bubble-primary">
-              อยากได้เครื่องซักผ้าที่ซักและตากผ้าอัตโนมัติเลย
-            </div>
-          </div>
-          <div class="chat chat-end">
-            <div class="chat-bubble text-xl chat-bubble-secondary">
-              You underestimate my power!
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="chats-on-right-side" class="relative">
-      <div class="absolute -right-3/4 -translate-y-10">
-        <div class="flex flex-col gap-12">
-          <div class="chat chat-start">
-            <div class="chat-bubble text-2xl chat-bubble-primary">
-              You underestimate my power!
-            </div>
-          </div>
-          <div class="chat chat-start">
-            <div class="chat-bubble text-xl chat-bubble-secondary">
-              You underestimate my power!
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
 </template>

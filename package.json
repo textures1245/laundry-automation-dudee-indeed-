@@ -17,6 +17,8 @@
   "dependencies": {
     "@formkit/vue": "^1.4.0",
     "@mdi/font": "^7.3.67",
+    "@tsparticles/confetti": "^3.0.3",
+    "@tsparticles/engine": "^3.0.3",
     "animate.css": "^4.1.1",
     "aos": "3.0.0-beta.6",
     "genesis": "link:@formkit/themes/genesis",

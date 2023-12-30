@@ -13,7 +13,9 @@ let isShowMessage = ref(false)
 </script>
 
 <template>
-  <div class="grid gap-y-12 my-12 place-items-center grid-flow-row md:grid-flow-col">
+  <div
+    class="grid overflow-x-hidden sm:overflow-auto pb-20 -mb-16 gap-y-12 mt-12 sm:pb-0 sm:mb-12 place-items-center grid-flow-row md:grid-flow-col"
+  >
     <figure
       data-aos="fade-down"
       data-aos-anchor-placement="center-bottom"
@@ -26,7 +28,7 @@ let isShowMessage = ref(false)
         </div>
       </div>
       <div class="w-full h-full relative" v-if="valueSelected.icon === 'mdi-alert'">
-        <div class="absolute z-10 left-8 translate-y-64">
+        <div class="absolute -skew-x-6 z-10 left-8 translate-y-64">
           <button
             data-aos="zoom-in-left"
             @click="() => (isShowMessage = !isShowMessage)"
@@ -35,7 +37,27 @@ let isShowMessage = ref(false)
             แจ้งเตือนฉัน
           </button>
           <div v-if="isShowMessage" class="chat chat-start ml-12">
-            <div class="chat-bubble animate__animated animate__fadeInUp shadow-xl drop-shadow-lg">
+            <div
+              data-aos="fade-down"
+              data-aos-anchor-placement="top-center"
+              class="md:absolute mt-2 mr-2 md:mt-0 md:mr-2 right-2 top-8"
+            >
+              <div
+                class="avatar chat-image hover:scale-125 z-10 skew-x-6 skew-y-4 rotate-[3deg] transition-transform cursor-pointer skeleton rounded-full"
+              >
+                <div
+                  class="w-20 rounded-full p-3 animate-pulse z-10 transition-all duration-150 ease-in-out !bg-primary/80"
+                >
+                  <img :src="LaundryAsset" />
+                </div>
+                <div
+                  class="w-14 absolute left-[17%] top-[16%] z-0 rounded-full p-3 animate-ping !bg-primary/50"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="chat-bubble bg-gradient-to-br from-primary to-secondary chat-bubble-primary animate__animated animate__fadeInUp shadow-xl drop-shadow-lg"
+            >
               🧺 จากร้าน: ซักดีมีชัย <br />ทำการมาร์คการแจ้งเตือนเป็นที่เรียบร้อยแล้ว
               เราจะแจ้งเตือนให้ทราบเมื่อเครื่องใช้งานเสร็จ 😃
             </div>
