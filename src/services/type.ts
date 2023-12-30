@@ -38,7 +38,6 @@ interface IUserOperations {
 
 interface IWashingMachineOperations extends IGetTimeLeftInterval {
   startWashing(mins: number, storeQueue: QueueOperation, user: User, store: LaundryStore): void
-  getCost(): number
 }
 
 interface IQueueOperations {

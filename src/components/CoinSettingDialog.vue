@@ -50,7 +50,7 @@ export default {
           <div class="flex items-center justify-between">
             <h1 class="text-xl font-semibold">เติมเหรียญ</h1>
             <v-btn :rounded="true" variant="tonal" size="small">
-              <v-icon icon="mdi-close"></v-icon>
+              <v-icon @click="() => (isActive.value = false)" icon="mdi-close"></v-icon>
             </v-btn>
           </div>
           <div class="divider"></div>

@@ -87,7 +87,4 @@ export class WashingMachine implements IWashingMachine {
   getTimeLeftInterval(): number {
     return this.timeLeft
   }
-  getCost(): number {
-    throw new Error('Method not implemented.')
-  }
 }

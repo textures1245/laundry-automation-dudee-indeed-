@@ -17,7 +17,7 @@ import SolutionStepFour from './assets/SolutionStepFour.vue'
     </div>
     <section
       id="context"
-      class="flex flex-col mt-48 mb-16 overflow-hidden sm:overflow-auto items-center"
+      class="flex flex-col mt-48 mb-16  items-center"
     >
       <article
         class="prose md:prose-2xl prose-headings:tracking-widest text-center space-y-48 font-bold"

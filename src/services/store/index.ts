@@ -99,7 +99,9 @@ export const useLaundryStore = defineStore('useLaundryStore', {
 
             console.log(randomMachine)
 
-            const randomTimeUnder180Sec = Math.floor(Math.random() * 180) + 1
+            // random time under 180 sec but more than 100 sec
+
+            const randomTimeUnder180Sec = Math.floor(Math.random() * (180 - 100 + 1)) + 100
             randomMachine.startWashing(
               randomTimeUnder180Sec,
               store.queue as QueueOperation,

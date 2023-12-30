@@ -8,14 +8,14 @@ import { useNotificationStore } from '../services/store/notificationStore'
 import { storeToRefs } from 'pinia'
 import type { User } from '@/services/classes/User'
 import NotificationDrawer from '@/components/NotificationDrawer.vue'
-import { Toast } from '@/components/Toast'
 import LoadingView from '@/views/assets/LoadingView.vue'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'DashboardView',
   components: { MapComponent, DashboardDrawer, NotificationDrawer, LoadingView },
   async setup() {
-    const currentUserLocation = await getGeoRequest()
+    let currentUserLocation = await getGeoRequest()
 
     const user = { username: 'Traiphakh Sittikaew', balance: 1000 }
     const laundryState = useLaundryStore()
@@ -23,14 +23,24 @@ export default {
     if (currentUserLocation) {
       useUserStore().setUser(user, currentUserLocation)
       useNotificationStore().setNotification([])
-      await laundryState.generateLaundryStore(currentUserLocation, 5, 10)
-      laundryState.randomizeToRunningMachines(3)
+      await laundryState.generateLaundryStore(currentUserLocation, 8, 10)
+      laundryState.randomizeToRunningMachines(5)
     } else {
-      Toast.fire({
+      Swal.fire({
         icon: 'error',
-        title:
-          'เนื่องจากแอปพลิเคชันจำเป็นต้องเข้าถึงตำแหน่งปัจจุบันของคุณ เพื่อทำงานให้ได้เต็มประสิทธิภาพกรุณาเปิดใช้งานตำแหน่งปัจจุบันของคุณ'
+        title: 'ไม่สามารถระบุตำแหน่งของคุณได้',
+        text: 'เนื่องจากว่าแอปพลิแคชั่นจำเป็นต้องใช้งานร่วมกับ GPS ของอุปกรณ์ แต่เนื่องจากเราไม่สามารถระบุตำแหน่งของคุณได้ ด้วยสาเหตุบางอย่าง ดังนั้นเราจึงจำลองตำแหน่งของคุณให้เป็นตำแหน่งที่อยู่ในเชียงใหม่'
       })
+
+      const randomLocation = {
+        latitude: 18.7883,
+        longitude: 98.9853
+      }
+      currentUserLocation = randomLocation
+      useUserStore().setUser(user, currentUserLocation)
+      useNotificationStore().setNotification([])
+      await laundryState.generateLaundryStore(currentUserLocation, 8, 10)
+      laundryState.randomizeToRunningMachines(5)
     }
 
     return {

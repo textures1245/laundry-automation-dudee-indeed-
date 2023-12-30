@@ -1,7 +1,7 @@
 import type { ICoordinates } from '../type'
 
-export function getGeoRequest(): Promise<ICoordinates> {
-  return new Promise((resolve, reject) => {
+export function getGeoRequest(): Promise<ICoordinates | null> {
+  return new Promise((resolve) => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords
@@ -10,7 +10,7 @@ export function getGeoRequest(): Promise<ICoordinates> {
       },
       (error) => {
         console.error(getErrorMessage(error))
-        reject(null)
+        resolve(null)
       }
     )
   })

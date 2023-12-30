@@ -57,11 +57,11 @@ export default {
 
 <template>
   <div class="relative">
-    <div class="fixed z-10 left-2 bottom-2">
+    <div class="fixed z-50 left-2 bottom-2">
       <v-btn
         @click="() => (drawer = !drawer)"
         variant="flat"
-        class="!bg-opacity-20"
+        class="!bg-opacity-20 "
         :rounded="true"
         color="primary"
         icon="mdi-menu"

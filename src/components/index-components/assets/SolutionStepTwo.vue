@@ -14,7 +14,7 @@ let isShowMessage = ref(false)
 
 <template>
   <div
-    class="grid overflow-x-hidden sm:overflow-auto pb-20 -mb-16 gap-y-12 mt-12 sm:pb-0 sm:mb-12 place-items-center grid-flow-row md:grid-flow-col"
+    class="grid overflow-x-hidden sm:overflow-auto pb-28  -mb-10 gap-y-12 mt-12  sm:mb-12 place-items-center grid-flow-row md:grid-flow-col"
   >
     <figure
       data-aos="fade-down"
@@ -23,7 +23,7 @@ let isShowMessage = ref(false)
       id="image"
     >
       <div class="relative">
-        <div class="absolute z-10 -translate-x-1/2 translate-y-[45%]">
+        <div class="hidden sm:absolute z-10 -translate-x-1/2 translate-y-[45%]">
           <WashingAnimation />
         </div>
       </div>
@@ -46,7 +46,7 @@ let isShowMessage = ref(false)
                 class="avatar chat-image hover:scale-125 z-10 skew-x-6 skew-y-4 rotate-[3deg] transition-transform cursor-pointer skeleton rounded-full"
               >
                 <div
-                  class="w-20 rounded-full p-3 animate-pulse z-10 transition-all duration-150 ease-in-out !bg-primary/80"
+                  class="w-20  rounded-full p-3 animate-pulse z-10 transition-all duration-150 ease-in-out !bg-primary/80"
                 >
                   <img :src="LaundryAsset" />
                 </div>
@@ -91,6 +91,7 @@ let isShowMessage = ref(false)
             ></div>
           </div>
           <h2
+            
             data-aos="fade-down"
             data-aos-anchor-placement="bottom-bottom"
             class="font-semibold gradient-heading bg-gradient-to-r from-primary to-secondary"

@@ -14,7 +14,6 @@ class QueueOperation implements IQueueOperations {
 
   enqueue(machine: WashingMachine) {
     this.machinesOnQueue.push(machine)
-    // Implement queue logic
   }
 
   dequeue(machineToDequeued: WashingMachine, onDequeueUserQueueList?: { user: User }) {
@@ -31,7 +30,6 @@ class QueueOperation implements IQueueOperations {
   }
 
   getQueue(): WashingMachine[] {
-    // Implement queue logic
     return this.machinesOnQueue
   }
 }

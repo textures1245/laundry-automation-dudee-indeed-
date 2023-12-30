@@ -38,7 +38,7 @@ export default {
 
 <template>
   <div class="relative">
-    <div class="fixed z-10 right-2 bottom-2">
+    <div class="fixed z-50 right-2 bottom-2">
       <v-btn
         @click="() => (drawer = !drawer)"
         variant="flat"

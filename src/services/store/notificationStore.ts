@@ -62,10 +62,6 @@ export const useNotificationStore = defineStore('useNotificationStore', {
       this.$state.notification.push(notification)
     },
 
-    // scheduleMachineNotification(user: User, machine: WashingMachine, time: Date) {
-
-    // },
-
     sendNotification(user: User, message: string, icon?: SweetAlertIcon) {
       const notification = new Notification(user, message)
       Toast.fire({

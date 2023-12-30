@@ -5,9 +5,9 @@ import { computed } from 'vue'
 
 const asSmSize = computed(() => {
   if (useDisplay && useDisplay().smAndDown) {
-    return false
+    return true
   }
-  return true
+  return false
 })
 </script>
 
@@ -15,7 +15,7 @@ const asSmSize = computed(() => {
   <v-layout>
     <v-skeleton-loader
       class="mx-auto border"
-      max-width="300"
+      :max-width="300"
       type="card, button, button, divider, list-item-three-line,list-item-three-line	,list-item-three-line, list-item-three-line		"
     >
     </v-skeleton-loader>
