@@ -57,8 +57,6 @@ interface ILaundryStoreOperations {
     name: string
     location: ICoordinates
   }
-
-  notifyUser(): void
 }
 
 interface IWashingMachine extends IWashingMachineOperations {
