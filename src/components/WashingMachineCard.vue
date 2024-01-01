@@ -142,7 +142,7 @@ export default {
               <FormKit
                 type="number"
                 help="ห้ามต่ำกว่า 70 วินาที สูงสุด 360 วินาที"
-                label="นาทีที่ใช้งาน"
+                label="วินาทีที่ใช้งาน"
                 name="time"
                 :validation-messages="{
                   min: 'นาทีต้องไม่ต่ำกว่า 70 วินาที',
