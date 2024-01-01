@@ -56,7 +56,8 @@ export default {
       ) {
         this.notificationStore.sendNotification(
           this.user,
-          `จากร้าน: ${this.laundryStore.name} ใช้งานเครื่องซักผ้าหมายเลข ${this.machine.name} สำเร็จ', 'success`
+          `จากร้าน: ${this.laundryStore.name} ใช้งานเครื่องซักผ้าหมายเลข ${this.machine.name} สำเร็จ`,
+          'success'
         )
       } else {
         this.notificationStore.sendNotification(

@@ -22,7 +22,7 @@ export const useNotificationStore = defineStore('useNotificationStore', {
     },
 
     notifyMachineSuccess(user: User, machine: WashingMachine, icon?: SweetAlertIcon) {
-      const notification = new Notification(user, `ร้าน: ${machine.storeId} เครื่องปั่นหมายเลข ${machine.name} ทำงานเส็จเรียบร้อบแล้ว`, machine)
+      const notification = new Notification(user, `ร้าน: ${machine.storeId} เครื่องปั่นหมายเลข ${machine.name} ทำงานเสร็จเรียบร้อบแล้ว`, machine)
       Toast.fire({
         icon: icon ?? 'info',
         title: `ข้อความจากร้าน ${machine.storeId}`,
