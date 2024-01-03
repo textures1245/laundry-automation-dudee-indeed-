@@ -3,13 +3,10 @@
     <section id="text">
       <div class="flex text-base-content flex-col items-center gap-40 justify-center">
         <article
-          class="prose prose-h1:text-6xl md:prose-2xl prose-headings:tracking-widest text-center space-y-36 font-bold"
+          class="prose prose-h1:text-6xl md:prose-2xl prose-headings:sm:tracking-widest text-center space-y-36 font-bold"
         >
-          <h2 data-aos-duration="1000" class="tracking-widest" data-aos="fade-down">
-            ถึงเวลาซักผ้าที่กองไว้ตั้งนานแล้ว
-          </h2>
+          <h2 data-aos-duration="1000" data-aos="fade-down">ถึงเวลาซักผ้าที่กองไว้ตั้งนานแล้ว</h2>
           <h1
-            class="tracking-widest"
             data-aos-duration="1000"
             data-aos-anchor-placement="bottom-bottom"
             data-aos="fade-down"
@@ -74,7 +71,7 @@
           </div>
         </div>
         <article
-          class="prose prose-h1:text-6xl md:prose-2xl prose-headings:tracking-widest text-center space-y-44 font-bold"
+          class="prose prose-h1:text-6xl md:prose-2xl prose-headings:sm:tracking-widest text-center space-y-44 font-bold"
         >
           <h2 data-aos-duration="1000" data-aos="fade-down">ดูยุ่งยากใช่มั้ยหล่า</h2>
           <h1

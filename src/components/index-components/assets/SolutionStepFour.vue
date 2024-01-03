@@ -127,7 +127,7 @@ import WashingMachineMini from '@/assets/washing-machine-mini.png'
       </div>
     </figure>
     <div class="" id="context">
-      <article class="prose prose-h1:text-6xl md:prose-lg prose-headings:tracking-wide text-center">
+      <article class="prose prose-h1:text-6xl md:prose-lg prose-headings:sm:tracking-wide text-center">
         <div>
           <div
             data-aos="fade-up"

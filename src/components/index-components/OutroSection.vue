@@ -7,16 +7,14 @@ import WashingMachineAssetVue from '@/components/index-components/assets/Washing
   <section id="outro-section" class="overflow-hidden sm:overflow-auto">
     <div class="flex h-full flex-col items-center">
       <article
-        class="prose md:prose-2xl prose-headings:tracking-widest text-center space-y-40 font-bold"
+        class="prose md:prose-2xl prose-headings:sm:tracking-widest text-center space-y-40 font-bold"
       >
-        <h3 data-aos-duration="1000" class="tracking-widest" data-aos="fade-down">
-          ตอนนี้ ก็รู้เคล็ดลับแล้ว
-        </h3>
-        <h3 data-aos-duration="1000" class="tracking-widest" data-aos="fade-down">
+        <h3 data-aos-duration="1000" data-aos="fade-down">ตอนนี้ ก็รู้เคล็ดลับแล้ว</h3>
+        <h3 data-aos-duration="1000" data-aos="fade-down">
           ถึงเวลาจบการซักผ้าที่น่าเบื่อนี้ซะที เพราะ...
         </h3>
         <h1
-          class="tracking-widest gradient-heading bg-gradient-to-r from-primary to-secondary py-4"
+          class="gradient-heading bg-gradient-to-r from-primary to-secondary py-4"
           data-aos-duration="1000"
           data-aos="fade-down"
         >

@@ -20,26 +20,26 @@ import SolutionStepFour from './assets/SolutionStepFour.vue'
       class="flex flex-col mt-48 mb-16  items-center"
     >
       <article
-        class="prose md:prose-2xl prose-headings:tracking-widest text-center space-y-48 font-bold"
+        class="prose md:prose-2xl prose-headings:sm:tracking-widest text-center space-y-48 font-bold"
       >
-        <h3 data-aos-duration="1000" class="tracking-widest" data-aos="fade-down">
+        <h3 data-aos-duration="1000"  data-aos="fade-down">
           ใช้งานหลายเครื่อง, หลายร้าน
         </h3>
-        <h3 data-aos-duration="1000" class="tracking-widest" data-aos="fade-down">
+        <h3 data-aos-duration="1000"  data-aos="fade-down">
           ลืมไปแล้วว่าซักที่ร้านไหนบ้าง
         </h3>
         <h2
-          class="tracking-widest gradient-heading bg-gradient-to-r from-error to-accent py-3"
+          class=" gradient-heading bg-gradient-to-r from-error to-accent py-3"
           data-aos-duration="1000"
           data-aos="fade-down"
         >
           แล้วสรุปต้องเสียเท่าไหร่เนี้ย
         </h2>
-        <h3 data-aos-duration="1000" class="tracking-widest" data-aos="fade-down">
+        <h3 data-aos-duration="1000"  data-aos="fade-down">
           ปวดหัวใช่มั้ยหล่า แต่ไม่ต้องห่วง...
         </h3>
         <h1
-          class="tracking-widest gradient-heading bg-gradient-to-r from-primary to-secondary py-4"
+          class=" gradient-heading bg-gradient-to-r from-primary to-secondary py-4"
           data-aos-duration="1000"
           data-aos-anchor-placement="bottom-bottom"
           data-aos="fade-down"

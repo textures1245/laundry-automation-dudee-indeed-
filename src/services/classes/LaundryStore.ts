@@ -18,7 +18,4 @@ export class LaundryStore implements ILaundryStore {
       location: this.location
     }
   }
-  notifyUser(): void {
-    throw new Error('Method not implemented.')
-  }
 }
