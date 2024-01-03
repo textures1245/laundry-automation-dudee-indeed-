@@ -1,5 +1,6 @@
 <script lang="ts">
 //@ts-nocheck
+
 import type { ICoordinates } from '@/services/type'
 import { type PropType } from 'vue'
 import { useLaundryStore } from '../services/store/index'
@@ -48,29 +49,29 @@ export default {
     navigateToStore(id) {
       this.$router.push(`/dashboard/${id}`)
     },
+
     createStoreMarker(map: typeof longdo) {
       this.stores.forEach((store) => {
-        map.Overlays.add(
-          new longdo.Marker(
-            {
-              lon: store.laundryStore.location.longitude,
-              lat: store.laundryStore.location.latitude
-            },
-            {
-              title: store.laundryStore.name,
-              icon: {
-                html: ` <div class="avatar skeleton   rounded-full">
+        const marker = new longdo.Marker(
+          {
+            lon: store.laundryStore.location.longitude,
+            lat: store.laundryStore.location.latitude
+          },
+          {
+            title: store.laundryStore.name,
+            icon: {
+              html: ` <div class="avatar skeleton   rounded-full">
      <div class="w-9 bg-opacity-animation  rounded-full p-3 animate-pulse transition-all duration-150 ease-in-out  bg-primary/60"><img  src="${launddyIcon}" /></div>
      <div class="w-4 absolute left-[18%] top-[18%] -z-10 bg-opacity-animation  rounded-full p-3 animate-ping   bg-primary/60"></div>
   </div>`,
-                offset: { x: 12, y: 45 }
-              },
-              popup: {
-                html: `
+              offset: { x: 12, y: 45 }
+            },
+            popup: {
+              html: `
                 <div class="card w-32">
                   <div class="alert flex flex-col alert-secondary">
                     <div class="divider  -my-1 text-base">${store.laundryStore.name}</div>
-      
+
       <div>จำนวนเครื่องซักผ้า: ${store.washingMachines.length}</div>
       <button class="btn btn-xs btn-info" onclick="navigateToStore('${store.laundryStore.id}')">
         เข้าสู้ร้าน
@@ -78,14 +79,15 @@ export default {
     </div>
   </div>
   `,
-                offset: { x: 12, y: 80 }
-              },
-              weight: longdo.OverlayWeight.Top
-            }
-          )
+              offset: { x: 12, y: 80 }
+            },
+            weight: longdo.OverlayWeight.Top
+          }
         )
+        map.Overlays.add(marker)
       })
     },
+
     init(zoomNum: number, geo: { lat: number; lng: number } | null, map: typeof longdo) {
       map.zoom(zoomNum, true)
       // var TagPanel2 = new longdo.TagPanel({ tag: ['mountain'] })
@@ -98,6 +100,31 @@ export default {
         let defaultGeo = longdo.LocationMode.Geolocation
         map.location(defaultGeo)
       }
+    },
+
+    openPopup(map: typeof longdo, lat: number, lon: number, content: string) {
+      const marker = map.Overlays.list().find(
+        (overlay) =>
+          overlay instanceof longdo.Marker &&
+          overlay.location().lat === lat &&
+          overlay.location().lon === lon
+      )
+
+      if (marker) {
+        map.Popup.visible(true)
+        map.Popup.location({ lon: lon, lat: lat })
+        map.Popup.content(content)
+      } else {
+        console.log('No marker found at the specified location')
+      }
+    },
+
+    onMarkerClick(map: typeof longdo, marker: longdo.Marker) {
+      const { lat, lon } = marker.location()
+
+      const content = marker.detail()
+
+      this.openPopup(map, lat, lon, content)
     }
   }
 }

@@ -43,6 +43,14 @@ export default {
       laundryState.randomizeToRunningMachines(5)
     }
 
+    // for mobile device
+    if (screen.width <= 750)
+      Swal.fire({
+        icon: 'warning',
+        title: 'Marker Popup ร้านค้าไม่สามารถแสดงได้ใน Mobile Device',
+        text: 'เนื่องจากส่วนของ Marker Popup ที่ Implement คู่กับ Longdo Map มีปัญหาในขณะการแสดงผลใน Mobile Device (ซึ่งลองทำการ Debug ดูแล้วพบว่าเป็นปัญหาของทาง Longdo API ที่ยังไม่ได้รับการแก้ไข้) จึงทำให้ผมไม่สามารถจัดการหรืือ Implement Solution ใหม่ได้เนื่องจาก Maker ที่ Implement อยู่นั้น Base มาจาก Longdo Class ดังนั้นจึงขออภัยด้วยครับ'
+      })
+
     return {
       currentUserLocation,
       user: storeToRefs(useUserStore()).getUser

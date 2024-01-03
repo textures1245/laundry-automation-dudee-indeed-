@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import App from '@/App.vue'
 import DashboardViewVue from '@/views/DashboardView.vue'
 import IndexViewVue from '@/views/IndexView.vue'
 import LundyStoreViewVue from '@/views/dashboardChild/LundyStoreView.vue'
